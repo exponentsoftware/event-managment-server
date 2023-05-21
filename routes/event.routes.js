@@ -2,6 +2,8 @@ const {
   createEvent,
   findAllEvents,
   findOneEvents,
+  PaginationEventsData,
+  searchData
 } = require("../controllers/Event.controller");
 var multer = require("multer");
 const fs = require("fs");
@@ -39,5 +41,7 @@ router.post("/new/event", upload.single("image"), async (req, res) => {
 });
 router.get("/all/events", findAllEvents);
 router.get("/event/:eventId", findOneEvents);
+router.get("/filter/events", PaginationEventsData);
+router.get("/search/events", searchData);
 
 module.exports = router;
