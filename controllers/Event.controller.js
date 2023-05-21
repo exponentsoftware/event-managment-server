@@ -40,8 +40,7 @@ exports.findAllEvents = async (req, res) => {
 exports.findOneEvents = async (req, res) => {
   try {
     let eventId = req.params.eventId;
-    const event = await Event.findById(eventId)
-    .populate('category', 'name')
+    const event = await Event.findById(eventId).populate("category", "name");
     res.json(event);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -89,7 +88,15 @@ exports.updateEvent = async (req, res) => {
 exports.delete = (req, res) => {};
 
 // Delete all Tutorials from the database.
-exports.deleteAll = (req, res) => {};
+exports.deleteEvent = async (req, res) => {
+  try {
+    const event = await Event.findByIdAndDelete(req.params.id);
+    // res.send(event);
+    res.send({ message: `Event ${event.title} Delete Successfully` });
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+};
 
 // Find all published Tutorials
 exports.findAllPublished = (req, res) => {};
@@ -103,12 +110,11 @@ exports.PaginationEventsData = async (req, res) => {
     const options = {
       page: parseInt(page),
       limit: parseInt(limit),
-      sort:     { created_at: -1 },
-      populate : 'category',
-      
+      sort: { created_at: -1 },
+      populate: "category",
     };
 
-    const result = await Event.paginate({}, options)
+    const result = await Event.paginate({}, options);
     const documents = result.docs;
     const totalDocuments = result.totalDocs;
     const totalPages = result.totalPages;

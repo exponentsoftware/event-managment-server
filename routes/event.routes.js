@@ -3,7 +3,8 @@ const {
   findAllEvents,
   findOneEvents,
   PaginationEventsData,
-  searchData
+  searchData,
+  deleteEvent,
 } = require("../controllers/Event.controller");
 var multer = require("multer");
 const fs = require("fs");
@@ -43,5 +44,7 @@ router.get("/all/events", findAllEvents);
 router.get("/event/:eventId", findOneEvents);
 router.get("/filter/events", PaginationEventsData);
 router.get("/search/events", searchData);
+
+router.delete("/delete/event/:id", deleteEvent);
 
 module.exports = router;
