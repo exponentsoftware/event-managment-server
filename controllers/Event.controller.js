@@ -8,7 +8,7 @@ exports.createEvent = async (req, res, image) => {
       description,
       eventDate,
       Address,
-      originezerContact,
+      organiserContact,
     } = req.body;
 
     const newEvent = new Event({
@@ -17,7 +17,7 @@ exports.createEvent = async (req, res, image) => {
       eventDate,
       image:image,
       Address,
-      originezerContact,
+      organiserContact,
     });
     await newEvent.save();
     res.status(201).json(newEvent);
