@@ -1,5 +1,5 @@
 const { Category } = require("../models/category");
-const {  Event } = require("../models/event.model");
+const { Event } = require("../models/event.model");
 
 exports.createCategory = async (req, res) => {
   try {
@@ -26,5 +26,20 @@ exports.getEventsByCategory = async (req, res) => {
     }
   } catch (error) {
     res.status(500).send(error.message);
+  }
+};
+
+// get Category;
+
+exports.getCategory = async (req, res) => {
+  try {
+    const category = await Category.find();
+    if (!category) {
+      res.status(400).json({ error: "No Category Found" });
+    } else {
+      res.json(category);
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 };

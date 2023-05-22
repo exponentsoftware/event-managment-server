@@ -1,7 +1,7 @@
 const { Event } = require("../models/event.model");
 
 // Create and Save a new Tutorial
-exports.createEvent = async (req, res, image) => {
+exports.createEvent = async (req, res) => {
   try {
     let { title, description, eventDate, category, Address, organiserContact } =
       req.body;
@@ -10,7 +10,7 @@ exports.createEvent = async (req, res, image) => {
       title,
       description,
       eventDate,
-      image: image,
+      // image: image,
       Address,
       organiserContact,
       category,
@@ -59,28 +59,11 @@ exports.updateEvent = async (req, res) => {
       organiserContact,
       category,
     } = req.body;
-    let updateEvent = await Event.findOneAndUpdate(
-      {
-        _id: eventId,
-      },
-      {
-        title,
-        description,
-        eventDate,
-        Address,
-        organiserContact,
-        category,
-      },
-      (err, doc) => {
-        if (err) {
-          console.log(`Error: ` + err);
-        } else {
-          res.status(200).json(doc);
-        }
-      }
-    );
+
+    const updateData = await Event.findByIdAndUpdate(eventId, req.body);
+    res.json(updateData);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).send(error.message);
   }
 };
 

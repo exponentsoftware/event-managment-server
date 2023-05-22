@@ -5,6 +5,7 @@ const {
   PaginationEventsData,
   searchData,
   deleteEvent,
+  updateEvent,
 } = require("../controllers/Event.controller");
 var multer = require("multer");
 const fs = require("fs");
@@ -24,26 +25,31 @@ var upload = multer({ storage: storage });
 const express = require("express");
 const router = express.Router();
 
-router.post("/new/event", upload.single("image"), async (req, res) => {
-  var imageBuffer = {
-    data: fs.readFileSync(
-      path.join(__dirname, "../uploads/" + req.file.filename)
-    ),
-    contentType: "image/png",
-  };
-  var imageBase64 = imageBuffer.toString("base64");
-  var image = {
-    data: imageBase64,
-    contentType: "image/png",
-  };
+router.post(
+  "/new/event",
+  createEvent
+  // upload.single("image"), async (req, res) => {
+  //   var imageBuffer = {
+  //     data: fs.readFileSync(
+  //       path.join(__dirname, "../uploads/" + req.file.filename)
+  //     ),
+  //     contentType: "image/png",
+  //   };
+  //   var imageBase64 = imageBuffer.toString("base64");
+  //   var image = {
+  //     data: imageBase64,
+  //     contentType: "image/png",
+  //   };
 
-  console.log(image);
-  createEvent(req, res, image);
-});
+  //   console.log(image);
+
+  // }
+);
 router.get("/all/events", findAllEvents);
 router.get("/event/:eventId", findOneEvents);
 router.get("/filter/events", PaginationEventsData);
 router.get("/search/events", searchData);
+router.put("/update/event/:eventId", updateEvent);
 
 router.delete("/delete/event/:id", deleteEvent);
 
