@@ -25,9 +25,12 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 // Routes
 const eventRouter = require("./routes/event.routes");
 const categoryRouter = require("./routes/category");
+const userRouter = require("./routes/user");
+
 
 app.use("/api", eventRouter);
 app.use("/api", categoryRouter);
+app.use("/api", userRouter);
 
 // Connection
 const PORT = process.env.PORT || 5000;
