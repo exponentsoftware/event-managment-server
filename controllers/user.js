@@ -1,5 +1,7 @@
 const { User } = require("../models/user");
 const bcrypt = require("bcrypt");
+require("dotenv").config();
+var jwt = require("jsonwebtoken");
 exports.register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -11,7 +13,6 @@ exports.register = async (req, res) => {
       username,
       email,
       password: hashpasword,
-
     });
 
     await newUser.save();
@@ -19,8 +20,47 @@ exports.register = async (req, res) => {
     res.status(200).json({
       status: 1,
       success: true,
-      data: newUser
+      data: newUser,
     });
+  } catch (error) {
+    res.status(500).json({ error: error.message, success: false, status: 0 });
+  }
+};
+
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      res.status(400).json({ message: "No User Found" });
+    }
+
+    let match = await bcrypt.compare(password, user.password);
+
+    if (match) {
+      let token = jwt.sign(
+        {
+          exp: Math.floor(Date.now() / 1000) + 60 * 60,
+          data: {
+            email,
+            password,
+          },
+        },
+        process.env.SECRET
+      );
+
+      res.json({
+        login: "Success",
+
+        user: {
+          email: email,
+          id: user._id,
+          token,
+        },
+      });
+    } else {
+      res.json({ error: "No Access" });
+    }
   } catch (error) {
     res.status(500).json({ error: error.message, success: false, status: 0 });
   }
