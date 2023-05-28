@@ -7,6 +7,7 @@ var schema = mongoose.Schema(
     description: String,
     isLive: Boolean,
     eventDate: String,
+
     image: {
       data: Buffer,
       contentType: String,

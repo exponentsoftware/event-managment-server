@@ -7,26 +7,28 @@ const {
   deleteEvent,
   updateEvent,
 } = require("../controllers/Event.controller");
+const { isVerify } = require("../controllers/middleware");
 var multer = require("multer");
-const fs = require("fs");
-const path = require("path");
+// const fs = require("fs");
+// const path = require("path");
 
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, path.join(__dirname, "../uploads"));
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + "-" + Date.now());
-  },
-});
+// var storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, path.join(__dirname, "../uploads"));
+//   },
+//   filename: (req, file, cb) => {
+//     cb(null, file.fieldname + "-" + Date.now());
+//   },
+// });
 
-var upload = multer({ storage: storage });
+// var upload = multer({ storage: storage });
 
 const express = require("express");
 const router = express.Router();
 
 router.post(
   "/new/event",
+  isVerify,
   createEvent
   // upload.single("image"), async (req, res) => {
   //   var imageBuffer = {
