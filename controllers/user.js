@@ -49,7 +49,7 @@ exports.login = async (req, res) => {
     if (match) {
       let token = jwt.sign(
         {
-          exp: Math.floor(Date.now() / 1000) + 60 * 60,
+          exp: Math.floor(Date.now() / 1000) + 60 * 60 * 12,
           data: {
             email,
             password,

@@ -49,6 +49,17 @@ app.use((req, res, next) => {
   next();
 });
 
+// Error handler 
+app.use((err, req, res, next) => {
+  // Handle the error
+  console.error(err);
+
+  // Set the appropriate status code and error response
+  const statusCode = err.statusCode || 500;
+  const errorMessage = err.message || "Internal Server Error";
+  res.status(statusCode).json({ error: errorMessage });
+});
+
 // Routes
 const eventRouter = require("./routes/event.routes");
 const categoryRouter = require("./routes/category");
