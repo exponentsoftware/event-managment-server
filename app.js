@@ -36,14 +36,15 @@ app.use((req, res, next) => {
       logColor = "green";
     } else if (res.statusCode >= 400 && res.statusCode <= 599) {
       logColor = "red";
+    }else if (res.statusCode >= 300 && res.statusCode <= 399){
+      logColor = "yellow"
     }
-
-    // Log the colored API call details, response time, URL, and status code
-    console.log(
-      chalk[logColor](
-        `API Call - URL: ${req.originalUrl}, Method: ${req.method}, Response Time: ${responseTime}ms, Status Code: ${res.statusCode}`
-      )
-    );
+      // Log the colored API call details, response time, URL, and status code
+      console.log(
+        chalk[logColor](
+          `API Call - URL: ${req.originalUrl}, Method: ${req.method}, Response Time: ${responseTime}ms, Status Code: ${res.statusCode}`
+        )
+      );
   });
 
   next();

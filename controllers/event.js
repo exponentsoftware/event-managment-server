@@ -68,7 +68,7 @@ exports.updateEvent = async (req, res) => {
 };
 
 // Delete a Tutorial with the specified id in the request
-exports.delete = (req, res) => {};
+
 
 // Delete all Tutorials from the database.
 exports.deleteEvent = async (req, res) => {
@@ -102,11 +102,7 @@ exports.PaginationEventsData = async (req, res) => {
     const totalDocuments = result.totalDocs;
     const totalPages = result.totalPages;
 
-    res.json({
-      totalPages,
-      totalDocuments,
-      documents,
-    });
+    res.status(200).json({totalPages, totalDocuments, documents});
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -114,7 +110,7 @@ exports.PaginationEventsData = async (req, res) => {
 
 // search  Data in data
 
-exports.searchData = async (req, res) => {
+exports.searchDataMultipleFilter = async (req, res) => {
   try {
     const { title, organiserContact, Address, eventDate } = req.query;
 

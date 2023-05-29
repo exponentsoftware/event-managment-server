@@ -5,7 +5,7 @@ exports.isVerify = async (req, res, next) => {
   try {
     const auth = req.headers.authorization;
     if (!auth) {
-      return res.json({ error: "No credentials sent!" });
+      return res.status(400).json({ error: "No credentials sent!" });
     } else {
       const token = req.headers.authorization.split(" ")[1];
       var decoded = jwt.verify(token, process.env.SECRET).data;
@@ -32,7 +32,7 @@ exports.isAdmin = (req, res, next) => {
       res.status(400).json({ error: "Access Denied" });
     }
   } catch (error) {
-    
+
     next(error);
   }
 };

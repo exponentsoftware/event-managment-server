@@ -1,12 +1,4 @@
-const {
-  createEvent,
-  findAllEvents,
-  findOneEvents,
-  PaginationEventsData,
-  searchData,
-  deleteEvent,
-  updateEvent,
-} = require("../controllers/Event.controller");
+const {createEvent,findAllEvents,findOneEvents,updateEvent,deleteEvent ,findAllPublished,PaginationEventsData,searchDataMultipleFilter} = require('../controllers/event')
 const { isVerify } = require("../controllers/middleware");
 var multer = require("multer");
 // const fs = require("fs");
@@ -23,12 +15,12 @@ var multer = require("multer");
 
 // var upload = multer({ storage: storage });
 
-const express = require("express");
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
 router.post(
   "/new/event",
-  isVerify,
+  // isVerify,
   createEvent
   // upload.single("image"), async (req, res) => {
   //   var imageBuffer = {
@@ -50,9 +42,8 @@ router.post(
 router.get("/all/events", findAllEvents);
 router.get("/event/:eventId", findOneEvents);
 router.get("/filter/events", PaginationEventsData);
-router.get("/search/events", searchData);
+router.get("/search/events", searchDataMultipleFilter);
 router.put("/update/event/:eventId", updateEvent);
-
 router.delete("/delete/event/:id", deleteEvent);
 
 module.exports = router;
