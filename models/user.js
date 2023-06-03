@@ -5,20 +5,27 @@ const userSchema = new Schema(
   {
     username: {
       type: String,
-      required: true,
+      // required: true,
     },
     email: {
       type: String,
-      required: true,
-      unique: true,
+      // required: true,
+      // unique: true,
     },
     role: { type: String, enum: ["admin", "user"], default: "user" },
     password: {
       type: String,
-      required: true,
+      // required: true,
     },
+    latitude:String,
+    longitude:String,
+    ip:String,
+    deviceDetails:String,
+
   },
   { timestamps: true }
 );
 
-exports.User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+
+module.exports = {User}

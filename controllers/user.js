@@ -1,11 +1,18 @@
 const { User } = require("../models/user");
+const { check, validationResult } = require("express-validator");
+
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 var jwt = require("jsonwebtoken");
 exports.register = async (req, res) => {
   try {
     const { username, email, password, role } = req.body;
-
+    // validation on input body error 
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    
     const user = await User.findOne({ email: email });
     if (user) {
       res
@@ -39,6 +46,12 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     const user = await User.findOne({ email: email });
     if (!user) {
       res.status(400).json({ message: "No User Found" });
@@ -74,3 +87,5 @@ exports.login = async (req, res) => {
     res.status(500).json({ error: error.message, success: false, status: 0 });
   }
 };
+
+

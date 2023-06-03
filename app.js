@@ -71,7 +71,8 @@ app.use("/api", categoryRouter);
 app.use("/api", userRouter);
 
 // Connection
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log("App running in port: " + PORT);
+const PORT = process.env.PORT || 8080;
+const HOST = '0.0.0.0';
+app.listen(PORT, HOST, () => {
+  console.log(`Running on http://${HOST}:${PORT}`);
 });
