@@ -1,54 +1,82 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-718a45dd9cf7e7f842a935f5ebbe5719a5e09af4491e668f4dbf3b35d5cca122.svg)](https://classroom.github.com/online_ide?assignment_repo_id=11181458&assignment_repo_type=AssignmentRepo)
-# Title
-Creating APIs with Mongoose - Backend Assignment
-
-# Introduction
-
-Express is one of the most popular web frameworks for Node.js that supports routing, middleware, view system… Mongoose is a promise-based Node.js ODM for MongoDB that provides a straight-forward, schema-based solution to model our application data along with built-in type casting, validation, query building, business logic hooks… In this tutorial, I will show you step by step to build Node.js Restful API for CRUD operations using Express, Mongoose with MongoDB database.
-
-You should install MongoDB in your machine first. The installation instructions can be found at [Official MongoDB installation manual](https://www.mongodb.com/docs/manual/installation/).
 
 
-# Assignment
+# Event Management Application - Node.js with Express and MongoDB
 
-You need to follow the tutorial on [Bezkoder Mongoose Tutorial](https://www.bezkoder.com/node-express-mongodb-crud-rest-api/) and build the apis using a mongodb running on your local machine. 
+This project is an event management application built using Node.js, Express.js, and MongoDB. It provides CRUD (Create, Read, Update, Delete) operations for events, along with features like event categorization, searching, filtering, pagination, and user authentication. The application allows users to register, login, and book events based on their roles (editor or user). Data validation is implemented using Express Validators, and password hashing is used for enhanced security.
 
-- The Project structure will remain the same. 
-- Rename the database name present in db.config.js to use local database instead of bezkoder_db
-- Test the APIs from Postman
-- Make changes to the Tutorials schema and add new fields like author,likes and ratings
-- What is the use of cors package?
-- What is a middleware in Express? How does it work?
-- What are query params, path params and body payload? How to send those from Postman? How to capture those in express code?
+## Features
 
+1. **Event CRUD Operations**
+   - Create: Users with editor/admin roles can create new events by providing details like event name, description, date, location, etc.
+   - Read: Users can view a single event by its ID or retrieve a list of all events.
+   - Update: Editors/admins can update the details of an event, such as modifying the event date, description, or location.
+   - Delete: Editors/admins can delete events from the system.
 
+2. **Event Categorization**
+   - Events can be categorized into different categories, allowing users to filter events based on their interests or preferences.
 
-## Assignment 1: Setting up the project
+3. **Searching and Filtering**
+   - Users can search for events using keywords or specific criteria like event name, category, or date.
+   - Filtering options are available to narrow down the search results based on various parameters like location, date range, etc.
 
-1. Install Node.js and MongoDB on your computer if you don't have them already.
-2. Create a new project folder for your API.
-3. Initialize a new Node.js project in your project folder using the command "npm init".
-4. Install the following dependencies using npm: express, mongoose, body-parser, cors.
-5. Create a new file called "server.js" in your project folder.
+4. **Pagination**
+   - Events are displayed in paginated form to enhance the user experience, allowing them to navigate through a large number of events easily.
 
-## Assignment 2: Defining the API endpoints
+5. **User Authentication**
+   - User registration and login functionality are implemented using JSON Web Tokens (JWT).
+   - Users can create an account, login with their credentials, and access restricted features like event booking.
 
-1. In the "server.js" file, require the dependencies you installed in the previous step.
-2. Create a new instance of the Express.js application using the "express()" function.
-3. Define the HTTP methods and routes for your API endpoints using the app object. For example: app.get('/products', function(req, res) { ... }).
-4. Use the "body-parser" middleware to parse incoming request data.
-5. Use the "cors" middleware to enable cross-origin resource sharing.
+6. **Role-Based Access Control**
+   - Two roles are implemented: editor and user.
+   - Editors/admins have additional privileges to perform CRUD operations on events, while regular users can only view and book events.
 
-## Assignment 3: Connecting to the MongoDB database
+7. **Password Hashing**
+   - User passwords are securely hashed using appropriate hashing algorithms before storing them in the database. This ensures the protection of user data even in the event of a data breach.
 
-1. Define a MongoDB connection string using the "mongoose.connect()" function. This should include the database name and your authentication credentials if necessary.
-2. Create a new Mongoose schema for your data model. For example: var tutorialSchema = new mongoose.Schema({ name: String, description: String, ... }).
-3. Create a new Mongoose model using the schema you defined. For example: var Tutorial = mongoose.model('Tutorial', tutorialSchema).
-4. Use the Mongoose model to perform CRUD operations on the MongoDB database. For example: Tutorial.find({}, function(err, products) { ... }).
+8. **Data Validation**
+   - Express Validators are used to validate user input, ensuring that the data entered during registration, event creation, etc., meets the required criteria.
 
-## Assignment 4: Testing the API
+## Prerequisites
 
-1. Start your API server using the "node server.js" command.
-2. Use a tool like Postman or curl to send HTTP requests to your API endpoints.
-3. Verify that your API is working correctly by checking the response data and any error messages.
-4. Debug any issues or errors that you encounter.
+Before running the application, ensure that the following dependencies are installed on your machine:
+
+- Node.js: [Installation Guide](https://nodejs.org/)
+- MongoDB: [Official MongoDB installation manual](https://docs.mongodb.com/manual/installation/)
+
+## Setup and Installation
+
+1. Clone the project repository from GitHub.
+2. Navigate to the project directory using a terminal or command prompt.
+3. Run `npm install` to install the required dependencies.
+4. Configure the MongoDB connection settings in the application.
+5. Run `node server.js` or `npm start` to start the server.
+
+## API Endpoints
+
+The following API endpoints are available in the application:
+
+- `POST /api/register`: Register a new user.
+- `POST /api/login`: Authenticate user credentials and generate a JWT token.
+- `GET /api/events`: Get all events.
+- `GET /api/events/:eventId`: Get details of a specific event by ID.
+- `POST /api/events`: Create a new event (accessible to editors/admins only).
+- `PUT /api/events/:eventId`: Update an existing event (accessible to editors/admins only).
+- `DELETE /api/events/:eventId`: Delete an event (accessible to editors/admins only).
+
+*Note: Replace `:eventId` with the ID of the specific event.*
+
+## Testing the Application
+
+1. Use a tool like Postman or any other API testing tool.
+2. Set the appropriate HTTP method and endpoint to test the desired functionality.
+3. Pass any required parameters or payload in the request.
+4. Inspect the response to verify the successful execution or any error messages.
+
+## Contribution
+
+Contributions to the project are welcome. If you encounter any issues or have suggestions for improvements, please create a new issue on the project repository.
+
+## Conclusion
+
+The event management application provides a robust backend solution for organizing and managing events. With features like CRUD operations, event categorization, searching, filtering, pagination, and user authentication, it offers a comprehensive system for event management. By following the setup instructions and utilizing the API endpoints, you can effectively utilize and test the application's functionality.
