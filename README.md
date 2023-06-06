@@ -73,6 +73,11 @@ The following API endpoints are available in the application:
 3. Pass any required parameters or payload in the request.
 4. Inspect the response to verify the successful execution or any error messages.
 
+## Docker Image Deployment 
+
+Remote Url: [Event app ](https://hub.docker.com/layers/parvejkhan09/event-app/latest/images/sha256:0ed23b0721705c3a5fcc9032108ebbb0a87b0f8734fb18211d9bca5334574728)
+
+
 ## Contribution
 
 Contributions to the project are welcome. If you encounter any issues or have suggestions for improvements, please create a new issue on the project repository.
